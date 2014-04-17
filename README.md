@@ -17,5 +17,5 @@ Informatyka - I semestr
     2. **Poziomy dostępu.** Enkapsulacja. Słowa kluczowe `public` i `private`.
     4. Kartkówka
     3. **Dziedziczenie i polimorfizm.** 
-    5. **Klasy abstrakcyjne. Interfejsy.**
-    8. **Wykorzystywanie blbliotek.** Biblioteka standardowa Javy. Zewnętrzne biblioteki.
+    5. **Interfejsy.** Klasa abstrakcyjna. Interfejs. Biblioteka standardowa Javy.
+    6. Klasówka
