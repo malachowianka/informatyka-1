@@ -7,6 +7,16 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[colorlinks=true]{hyperref}
+\usepackage{epigraph}
+\usepackage{etoolbox}
+
+\setlength\epigraphwidth{0.8\textwidth}
+\setlength\epigraphrule{0pt}
+\makeatletter
+\patchcmd{\epigraph}{\@epitext{#1}}{\itshape\@epitext{#1}}{}{}
+\makeatother
+
+\setcounter{tocdepth}{1}
 
 \author{Mariusz Różycki, Cezary Obczyński}
 \title{Informatyka matematyczna. Semestr I}
@@ -88,14 +98,185 @@ się pojęciom obiektu i klasy. Poznamy zagadnienia definiujące paradygmat
 programowania obiektowego, czyli enkapsulację, dziedziczenie i polimorfizm.
 
 \chapter{Czym zajmuje się informatyka?}
-\section{Zera i jedynki}
-\section{,,Duże'' liczby, teksty, obrazy}
-\section{Teoria i praktyka}
+\epigraph%
+{Komputer z czarną magią, oczywiście, nie ma nic wspólnego. Przeciwnie, jej
+istota jest w zasadzie dziecinnie prosta. Prosta w sensie idei, a nie
+technicznej konstrukcji. W każdym razie prosta na tyle, że nie potrzeba z góry
+zakładać, że się tego nigdy nie zrozumie.}%
+{--- \textup{Krzysztof Zanussi}, Komputery}
 
+Powyższy cytat, pochodzący z powstałego w 1967 roku filmu dokumentalnego
+,,Komputery'', pomimo upływu lat i nieustannego rozwoju technologii, pozostaje
+wciąż prawdziwy i aktualny. Dzisiaj komputery traktujemy bardziej jako
+czarne skrzynki, które po prostu działają, nie zastanawiając się nad tym
+co konkretnie dzieje się w środku.
+
+Nie jest to co prawda wiedza niezbędna na co dzień. Jednakże w czasach, kiedy
+niemal każdy nosi w kieszeni miniaturowy komputer, na pewno warto jest wiedzieć,
+chociaż w uproszczeniu, jak te urządzenia działają w środku.
+
+\section{Zera i jedynki}
+Pierwszą rzeczą, którą należy sobie uświadomić, jest to, że komputery w gruncie
+rzeczy są dość głupie. Potrafią operować jedynie na dwóch wartościach: 0 i 1.
+Wszystko sprowadza się do długich ciągów tych tylko dwóch znaków: każdy film,
+artykuł, zdjęcie, program, strona internetowa, system operacyjny. Same zera
+i jedynki. Pojedynczą taką wartość nazywamy \textit{bitem}.
+
+Ważne jest również to, że każde zero jest takie samo jak każde inne zero, a
+każda jedynka jest identyczna każdej innej jedynce. Zero będące częścią twojego
+ulubionego filmu nie różni się niczym od zera znajdującego się w reprezentacji
+wiadomości wysłanej przez Facebooka, przelewu bankowego czy arcydzieła
+narysowanego w Paincie przez twojego trzyletniego kuzyna. Wszystkie zera są
+sobie równe i wszystkie jedynki są sobie równe, a do tego są jedynymi
+dostępnymi wartościami.
+
+Komputer nie potrafi też zbyt wiele z tymi bitami zrobić. Oprócz ich
+przechowania, może wykonywać na nich tylko najprostsze operacje logiczne:
+,,i'', ,,lub'', ,,nie'' oraz ,,albo''.
+
+Skoro więc komputer na najniższym poziomie potrafi tak niewiele, jakim cudem
+możemy przy ich pomocy wykonywać skomplikowane obliczenia, słuchać muzyki,
+czy w czasie rzeczywistym porozumiewać się z ludźmi znajdującymi się na
+drugiej stronie globu?
+
+Cały sekret kryje się w skali. Pojedynczy bit niesie ze sobą niewiele
+informacji, nie daje nam też zbyt wiele możliwości. Jednakże liczba bitów,
+jakie komputer potrafi przechować liczy się w bilionach. Liczba prostych
+operacji, które komputer może wykonać w ciągu sekundy liczy się w dziesiątkach
+(jeżeli nie setkach) miliardów.
+
+\section{Zapisywanie liczb, tekstu, zdjęć i filmów}
+Zastanówmy się teraz w jaki sposób możemy użyć ciągów zer i jedynek, żeby
+zapisywać liczby oraz tekst.
+
+\subsection{Systemy liczbowe}
+Przyjrzyjmy się temu w jaki sposób zapisujemy liczby na co dzień. Przecież,
+jak by nie patrzeć, również używamy do tego ciągów znaków. Główną różnicą
+jest to, że do dyspozycji mamy 10 różnych znaków, a nie 2.
+
+Spójrzmy na liczbę 1729 i zastanówmy się co dokładnie oznacza każda z cyfr
+w tym zapisie. Mogliście się spotkać z określeniami takimi jak
+,,cyfra jedności'', ,,cyfra dziesiątek'' itp. Idąc od prawej strony, każda
+kolejna cyfra w zapisie dziesiętnym oznacza ile razy dana potęga liczby 10
+występuje w danej liczbie.
+
+I tak 9 jest cyfrą jedności, zatem określa ile jedności znajduje się w liczbie
+1729. Dalej 2 jest cyfrą dziesiątek, 7 jest cyfrą setek, a 1 cyfrą tysięcy.
+
+Stąd 1729 możemy inaczej zapisać jako $1\times 1000 + 7\times 100 + 2\times 10
++ 9\times 1$ lub, zapisując potęgi dziesiątki w postaci wykładniczej,
+$1\times 10^3 + 7\times 10^2 + 2\times 10^1 + 9\times 10^0$.
+
+Do zapisu liczb w systemie dziesiętnym wystarczy 10 różnych symboli. Nie
+potrzebujemy osobnych znaków do przedstawiania większych wartości, ponieważ
+w zamian używamy ponownie tych samych symboli na kolejnych miejscach.
+Dziesięć jedności to jedna dziesiątka, dziesięć dziesiątek to jedna setka itd.
+
+Co gdyby zamienić liczbę 10 jakąś inną? Na przykład 8? Wtedy każda kolejna
+cyfra w zapisie oznaczałaby kolejną potęgę 8, stąd 123 w systemie dziesiętnym
+to $1 \times 8^2 + 2 \times 8^1 + 3 \times 8^0 = 1 \times 64 + 2 \times 8
++ 3 \times 1 = 64 + 16 + 3 = 83$ w systemie dziesiętnym.
+
+Zwróć też uwagę, że do zapisu dowolnej liczby naturalnej wystarczą nam tylko
+cyfry od 0 do 7, ponieważ 8 jedności możemy zapisać jako jedną ósemkę,
+8 ósemek jako jedną 64.
+
+My jednak mamy do dyspozycji tylko 2 symbole: 0 i 1. W takim razie zamiast
+10 czy 8 powinniśmy jako podstawy zapisu liczb użyć liczby 2. W takim
+zapisie każda kolejna cyfra oznaczałaby kolejną potęgę dwójki. I tak 1001
+w systemie dwójkowym to $1\times 2^3 + 0\times 2^2 + 0\times 2^1 + 1\times 1
+= 1 \times 8 + 1 \times 1 = 8+1 = 9$.
+
+System dwójkowy, zwany inaczej binarnym, używany jest do przedstawiania w
+pamięci komputera nieujemnych liczb całkowitych.
+
+Zwróć uwagę, że przy użyciu 3 bitów możemy zapisać liczby od 0 do 7, czyli
+od 0 do $2^3-1$. Bardziej ogólnie, przy użyciu $n$ bitów możemy w ten sposób
+zapisać liczby od 0 do $2^n-1$ włącznie.
+
+\subsection{ASCII}
+W latach 60. XIX wieku organizacja American Standards Association opracowała
+system kodowania liter alfabetu angielskiego (osobno małych i wielkich), cyfr, 
+znaków interpunkcyjnych, niektórych operatorów matematycznych oraz pewnych 
+znaków specjalnych, przy użyciu liczb. W sumie 128 różnych znaków, co wymaga
+7 bitów do zapisu każdego z nich. Zostało to jednak zaokrąglone do 8 bitów,
+jako że większość komputerów operuje na 8-bitowych \textit{bajtach}.
+
+W oryginalnym kodzie ASCII ósmy bit pozostaje nieużywany, jednak powstało
+wiele rozszerzeń, które wykorzystują ten bit, a dodatkowe 128 dostępnych dzięki
+temu liczb wykorzystuje do zapisu narodowych znaków diakrytycznych. W przypadku
+niektórych języków (np. chiński, japoński, koreański) te 128 dodatkowych liczb
+nie wystarcza, stąd powstały bardziej zaawansowane kodowania, jak Unicode,
+które wykorzystują więcej niż jeden bajt do zapisu jednego znaku.
+
+Powróćmy jednak na chwilę do ASCII. Wielka litera ,,A'' w tym kodzie zapisywana
+jest jako liczba 65, a każdej kolejnej literze angielskiego alfabetu
+przypisana jest kolejna liczba, aż do liczby 91, która reprezentuje literę
+,,Z''. Stąd słowo ,,INFORMATYKA'' zapisane zostanie jako ciąg: 73, 78, 70, 79,
+82, 77, 65, 84, 89, 75, 65. 
+
+\subsection{Zdjęcia i filmy}
+Najprostszym sposobem zapisu zdjęcia jest podzielenie go na małe kwadraciki,
+zwane pikselami. Każdemu pikselowi przypisujemy trzy wartości, oznaczające
+kolejno intensywność kolorów czerwonego, zielonego i niebieskiego (RGB). 
+Najczęściej używa się 8 bitów (a zatem 256 różnych wartości) dla każdego 
+z tych kolorów, dając w sumie 24 bity na piksel (stąd 24-bitowe grafiki).
+
+Taki sposób zapisywania obrazów nazywamy \textit{mapą bitową}. Jest to bardzo
+mało wydajny system. Zdjęcie w rodzielczości FullHD (1920x1080 pikseli)
+zapisane w tym systemie zajmie $1920 \times 1080 \times 24$, czyli 49~766~400
+bitów. Jednakże do określenia rozmiaru plików z reguły używa się nieco innych
+jednostek: 8 bitów (8b) to jeden bajt (1B), 1024 bajty to 1 kilobajt (1kB),
+1024 kilobajty to 1 megabajt (1MB), a 1024 megabajty to 1 gigabajt (1GB).
+
+Zatem 50 milionów bitów to w przybliżeniu 12 milionów bajtów, czyli około 12MB.
+Być może zdajesz sobie sprawę, że w rzeczywistości zdjęcie w tej rozdzielczości
+zajmie dużo mniej miejsca, z reguły około 400-500kB. To dzięki kompresji, która
+jednak wykracza poza zakres materiału tego kursu.
+
+Stąd do zapisu filmu już krótka droga. Wystarczy zapisać osobno każdą klatkę
+filmu. Do tego, oczywiście, trzeba zastosować sporo kompresji, ponieważ bez
+niej jedna sekunda filmu FullHD (24 klatki) zajmowałaby prawie 300MB.
+
+\section{Nauka o informacji}
+Informatyka to jednak dużo więcej niż tylko zapisywanie filmów przy użyciu
+zer i jedynek. Informatyka, jako nauka, zajmuje się \textit{informacją}.
+To znaczy, między innymi, jak przechowywać informacje, jak je skutecznie
+przetwarzać, w jaki sposób szybko wykonywać obliczenia, jak upewnić się, że
+ich wynik jest poprawny oraz jak zapewnić danym bezpieczeństwo. Informatyka 
+zajmuje się też decydowaniem co w ogóle można obliczyć, ile czasu oraz pamięci 
+to zajmie.
+
+My skupimy się na praktycznych zastosowaniach informatyki.
 
 \part{Podstawy programowania}
 \chapter{Wprowadzenie}
+\epigraph%
+{Informatyka jest tak samo nauką o komputerach, jak astronomia jest nauką
+o teleskopach.}%
+{--- autor nieznany}
+
+Informatyka, jako nauka, nie ogranicza się tylko do komputerów czy
+programowania, tak samo jak astronomia nie ogranicza się do patrzenia w gwiazdy.
+Jednak tak samo jak astronomia bez teleskopów, informatyka bez komputerów
+ogranicza się do nudnego wkuwania teorii. Nie zmienia to jednak faktu, że
+naprawa drukarki czy konfiguracja sieci domowej ma się do informatyki tak,
+jak stosowanie środków czyszczących do chemii.
+
 \section{Na czym polega programowanie?}
+Komputer jest głównym narzędziem informatyka. Z komputerem się trzeba jednak
+w jakiś sposób porozumieć. Problem polega na tym, że ludzkich języków komputer
+nie rozumie, a język, którym posługuje się komputer jest raczej zbyt
+skomplikowany dla ludzi, aby był praktyczny.
+
+Stąd powstało wiele języków pośrednich, które człowiek może zrozumieć, a do
+tego łatwo jest je przetłumaczyć na język zrozumiały dla komputera.
+
+Języki te nazywamy językami programowania. Przy ich użyciu możemy redagować
+ciągi instrukcji (zwane programami), które komputer następnie wykona. Trzeba 
+jednak pamiętać, że komputer nie potrafi się domyślić co programista miał na 
+myśli. Stąd programy powinny być jednoznaczne.
+
 \section{Czym jest kompilator?}
 \section{Korzystanie ze środowiska Code::Blocks}
 \section{Pierwszy program}
@@ -117,6 +298,8 @@ programowania obiektowego, czyli enkapsulację, dziedziczenie i polimorfizm.
 \chapter{Pętle}
 \section{Pętla \texttt{while}}
 \section{Pętla \texttt{for}}
+
+\chapter{Tablice}
 
 \chapter{Funkcje}
 \section{Abstrakcja}
