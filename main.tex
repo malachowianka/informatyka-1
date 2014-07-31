@@ -2,13 +2,15 @@
 \parskip0pt
 \usepackage{polski}
 \usepackage[utf8]{inputenc}
-\usepackage{listing}
+\usepackage{listings}
 \usepackage{enumerate}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage[colorlinks=true]{hyperref}
 \usepackage{epigraph}
 \usepackage{etoolbox}
+\usepackage{framed}
+\usepackage{color}
 
 \setlength\epigraphwidth{0.8\textwidth}
 \setlength\epigraphrule{0pt}
@@ -17,6 +19,42 @@
 \makeatother
 
 \setcounter{tocdepth}{1}
+
+\lstset{basicstyle=\ttfamily,
+        language=C++,
+        captionpos=b,
+        numbers=left,
+        numbersep=15pt,
+        numberstyle=\footnotesize\ttfamily,
+        xleftmargin=30pt,
+        aboveskip=2em,
+        belowskip=2em,
+        frame=trBL,
+        framexleftmargin=25pt,
+        inputencoding=utf8,
+        showstringspaces=false,
+        escapeinside={(@}{@)}}
+
+\definecolor{shadecolor}{gray}{0.95}
+
+\newenvironment{try}
+{ \vspace{1em} \noindent
+  \definecolor{shadecolor}{gray}{0.7}
+  \begin{minipage}{\textwidth} 
+  \begin{shaded} 
+  \textbf{Spróbuj!} }
+{ \end{shaded} 
+  \end{minipage} 
+  \vspace{1em} }
+
+\newenvironment{notice}
+{ \vspace{1em} \noindent
+  \definecolor{shadecolor}{gray}{0.9}
+  \begin{minipage}{\textwidth} 
+  \begin{shaded} \textbf{Uwaga!} }
+{ \end{shaded} 
+  \end{minipage} 
+  \vspace{1em} }
 
 \author{Mariusz Różycki, Cezary Obczyński}
 \title{Informatyka matematyczna. Semestr I}
@@ -280,6 +318,76 @@ myśli. Stąd programy powinny być jednoznaczne.
 \section{Czym jest kompilator?}
 \section{Korzystanie ze środowiska Code::Blocks}
 \section{Pierwszy program}
+Utwórz nowy, pusty plik i skopiuj do edytora poniższy fragment kodu:
+
+\begin{lstlisting}[caption={Hello, world!}]
+(@ \label{lst:hello} @)
+#include <iostream>
+using namespace std;
+
+int main() {
+  cout << "Hello, world!" << endl;
+
+  return 0;
+}
+\end{lstlisting}
+
+Zapisz go jako, na przykład, \texttt{hello.cpp}, skompiluj i uruchom.
+
+\begin{notice}
+Nazwa pliku z kodem źródłowym nie ma większego znaczenia dla kompilatora
+(poza nielicznymi wyjątkami, o których niżej). Nazywaj je według własnego
+uznania, tak, aby łatwo byłoby Ci odnaleźć właściwy plik, kiedy będziesz go
+potrzebować.
+
+C++ w podstawowej formie koduje tekst przy użyciu ASCII, więc polskie znaki
+mogą sprawiać problemy. Staraj się ich unikać, zarówno w nazwach plików z kodem 
+źródłowym, jak i w samym kodzie.
+
+W nazwach plików unikaj także spacji. Jeżeli musisz, użyj zamiast niej
+podkreślenia (czyli ,,\_'') lub stosuj tzw. \textit{camelCase}, czyli
+każde słowo (oprócz pierwszego) pisz wielką literą, całkowicie pomijając spacje.
+\end{notice}
+
+Powyższy program nazywa się \textit{Hello, world!} i jego jedynym zadaniem
+jest wypisanie na ekran tego właśnie tekstu. Używa się go, między innymi,
+do testowania konfiguracji środowiska -- ze względu na jego prostotę bardzo
+ciężko jest popełnić w nim błąd, stąd jakiekolwiek anomalie wynikać muszą
+z błędnej konfiguracji.
+
+Będzie to też najprawdopodobniej pierwszy program, jaki napiszesz w każdym 
+języku programowania, jakiego się kiedykolwiek nauczysz. 
+
+Ze względu na specyfikę języka C++, zrozumienie za co odpowiada każdy fragment 
+powyższego kodu może być dla Ciebie w tym momencie trudne. Dlatego nie będziemy
+się tym teraz zajmować. Możemy jednak spróbować nieco zmienić powyższy kod.
+
+\begin{try}
+Zmodyfikuj program z listingu~\ref{lst:hello} tak, aby wypisywał na ekran tekst 
+,,My second program''.
+\end{try}
+
+Jak pewnie się domyślasz, za właściwe wyświetlenie tekstu odpowiada linia
+kodu zaczynająca się od \texttt{cout}. Możemy zmienić zawartość cudzysłowów
+na inny tekst, który zostanie wyświetlony w zamian.
+
+\begin{try}
+Zmodyfikuj program z listingu~\ref{lst:hello} tak, aby wypisywał na ekran tekst
+,,Hello, world!'' dwukrotnie, w dwóch osobnych liniach.
+\end{try}
+
+Kod programu wykonywany jest z reguły linijka po linijce. Dlatego żeby
+wyświetlić ,,Hello, world!'' dwukrotnie, wystarczy skopiować i wkleić jeszcze
+raz poniżej linię zaczynającą się od \texttt{cout}.
+
+\begin{try}
+Zmodyfikuj program z poprzedniego zadania tak, aby wypisywał w pierwszej linii
+tekst ,,Hello, world!'', a w drugiej ,,Hello, again!''.
+\end{try}
+
+Ponownie, wystarczy zmienić zawartość cudzysłowów w drugiej z linii kodu
+wyświetlających tekst.
+
 \section{Wypisywanie danych}
 \section{Przeprowadzanie prostych obliczeń}
 
@@ -297,6 +405,7 @@ myśli. Stąd programy powinny być jednoznaczne.
 
 \chapter{Pętle}
 \section{Pętla \texttt{while}}
+Listing~\ref{lst:hello}
 \section{Pętla \texttt{for}}
 
 \chapter{Tablice}
