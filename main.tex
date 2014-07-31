@@ -6,7 +6,7 @@
 \usepackage{enumerate}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage[colorlinks=true]{hyperref}
+\usepackage[colorlinks=true,urlcolor=black,linkcolor=black]{hyperref}
 \usepackage{epigraph}
 \usepackage{etoolbox}
 \usepackage{framed}
@@ -39,7 +39,7 @@
 
 \newenvironment{try}
 { \vspace{1em} \noindent
-  \definecolor{shadecolor}{gray}{0.7}
+  \definecolor{shadecolor}{RGB}{239,255,158}
   \begin{minipage}{\textwidth} 
   \begin{shaded} 
   \textbf{Spróbuj!} }
@@ -49,7 +49,7 @@
 
 \newenvironment{notice}
 { \vspace{1em} \noindent
-  \definecolor{shadecolor}{gray}{0.9}
+  \definecolor{shadecolor}{RGB}{255,240,158}
   \begin{minipage}{\textwidth} 
   \begin{shaded} \textbf{Uwaga!} }
 { \end{shaded} 
@@ -320,16 +320,15 @@ myśli. Stąd programy powinny być jednoznaczne.
 \section{Pierwszy program}
 Utwórz nowy, pusty plik i skopiuj do edytora poniższy fragment kodu:
 
-\begin{lstlisting}[caption={Hello, world!}]
-(@ \label{lst:hello} @)
-#include <iostream>
-using namespace std;
+\begin{lstlisting}[caption={Hello, world!},label={lst:hello}]
+#include <iostream>(@ \label{lst:hello_iostream} @)
+using namespace std;(@ \label{lst:hello_using} @)
 
-int main() {
-  cout << "Hello, world!" << endl;
+int main() {(@ \label{lst:hello_main} @)
+  cout << "Hello, world!" << endl;(@ \label{lst:hello_cout} @)
 
-  return 0;
-}
+  return 0;(@ \label{lst:hello_return} @)
+}(@ \label{lst:hello_end} @)
 \end{lstlisting}
 
 Zapisz go jako, na przykład, \texttt{hello.cpp}, skompiluj i uruchom.
@@ -359,8 +358,37 @@ Będzie to też najprawdopodobniej pierwszy program, jaki napiszesz w każdym
 języku programowania, jakiego się kiedykolwiek nauczysz. 
 
 Ze względu na specyfikę języka C++, zrozumienie za co odpowiada każdy fragment 
-powyższego kodu może być dla Ciebie w tym momencie trudne. Dlatego nie będziemy
-się tym teraz zajmować. Możemy jednak spróbować nieco zmienić powyższy kod.
+powyższego kodu może być dla Ciebie w tym momencie trudne. Spróbujmy jednak
+zrozumieć ogólną jego strukturę.
+
+Linie~\ref{lst:hello_iostream} i~\ref{lst:hello_using} odpowiadają za dołączenie
+do programu odpowiednich \textit{bibliotek}, to jest zewnętrznego kodu, który
+chcemy wykorzystać.
+
+Linia~\ref{lst:hello_main} określa początek właściwego programu. Wszystko
+znajdujące się między klamrą w tej linii a klamrą w linii~\ref{lst:hello_end}
+to ciało \textit{funkcji głównej} programu, która stanowi jego punkt startowy.
+Nieco więcej o funkcjach dowiemy się później.
+
+Linia~\ref{lst:hello_return} kończy działanie funkcji głównej. Nawet jeżeli
+został jeszcze jakiś kod do wykonania, zostanie on zignorowany.
+
+\begin{try}
+Przenieś wyrażenie \texttt{return} na początek funkcji głównej programu.
+Skompiluj i uruchom program.
+\end{try}
+
+Wyrażenie \texttt{return} zostanie w tym przypadku wykonane przed wypisaniem
+tekstu, a więc program zakończy się, nie wypisując nic na ekran.
+
+Póki co nie musisz dokładnie rozumieć ani pamiętać tych wszystkich szczegółów.
+Zapisz sobie kod tego programu na dysku i używaj jako punktu wyjściowego
+swoich programów. Jeżeli chcesz, możesz spróbować kilka razy przepisać ten 
+kod, aż go zapamiętasz. Miej jednak na uwadze, że prawie każdy symbol ma tutaj
+znaczenie!
+
+\section{Wypisywanie danych}
+Spróbujmy przyjrzeć się nieco bliżej wypisywaniu danych.
 
 \begin{try}
 Zmodyfikuj program z listingu~\ref{lst:hello} tak, aby wypisywał na ekran tekst 
@@ -368,8 +396,9 @@ Zmodyfikuj program z listingu~\ref{lst:hello} tak, aby wypisywał na ekran tekst
 \end{try}
 
 Jak pewnie się domyślasz, za właściwe wyświetlenie tekstu odpowiada linia
-kodu zaczynająca się od \texttt{cout}. Możemy zmienić zawartość cudzysłowów
-na inny tekst, który zostanie wyświetlony w zamian.
+kodu zaczynająca się od \texttt{cout} (linia~\ref{lst:hello_cout}). Możemy 
+zmienić zawartość cudzysłowów na inny tekst, który zostanie wyświetlony 
+w zamian.
 
 \begin{try}
 Zmodyfikuj program z listingu~\ref{lst:hello} tak, aby wypisywał na ekran tekst
@@ -388,7 +417,12 @@ tekst ,,Hello, world!'', a w drugiej ,,Hello, again!''.
 Ponownie, wystarczy zmienić zawartość cudzysłowów w drugiej z linii kodu
 wyświetlających tekst.
 
-\section{Wypisywanie danych}
+\begin{try}
+Napisz program, który wyświetli na ekranie kilka pierwszych wersów
+inwokacji z ,,Pana Tadeusza''. Umieść łamania linii w odpowiednich miejscach.
+Pamiętaj o unikaniu polskich znaków!
+\end{try}
+
 \section{Przeprowadzanie prostych obliczeń}
 
 \chapter{Zmienne i stałe}
